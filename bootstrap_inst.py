@@ -37,8 +37,9 @@ def install_zip(path, device_ip, device_port):
 	# exit(0)
 	os.system(scp_cmd)
 
-	os.system("open "+tmpdir)
-	# shutil.rmtree(tmpdir)
+	# os.system("open "+tmpdir)
+	# clean up tmp dir
+	shutil.rmtree(tmpdir)
 	pass
 
 def main():
