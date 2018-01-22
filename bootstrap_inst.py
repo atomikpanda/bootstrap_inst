@@ -42,9 +42,18 @@ def install_zip(path, device_ip, device_port):
 	shutil.rmtree(tmpdir)
 	pass
 
+def usage():
+	print "Usage ./bootstrap_inst.py <path-to-zip>"
+	pass
+
 def main():
 	global device_ip
 	global device_port
+
+	if len(sys.argv) < 2:
+		usage()
+		exit(1)
+
 
 	if os.environ.has_key("THEOS_DEVICE_IP") == True:
 		device_ip = os.environ["THEOS_DEVICE_IP"]
