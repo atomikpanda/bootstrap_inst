@@ -27,13 +27,17 @@ def install_zip(path, device_ip, device_port):
 	with zipfile.ZipFile(path,"r") as zip_ref:
 		zip_ref.extractall(tmpdir)
 
-	shutil.rmtree(tmpdir+"/__MACOSX")
+	MACOSX_DIR = tmpdir+"/__MACOSX"
+
+	if os.path.isdir(MACOSX_DIR) == True:
+		shutil.rmtree(MACOSX_DIR)
+
 	local_bootstrap_dir = find_bootstrap_dir(tmpdir)
 	if local_bootstrap_dir == None:
 		print "Failed to find bootstrap directory in zip contents."
 		exit(1)
 
-	scp_cmd = "scp -r -P "+device_port+" "+local_bootstrap_dir+" root@"+device_ip+":/bootstrap"
+	scp_cmd = "scp -r -P "+device_port+" "+local_bootstrap_dir+" root@"+device_ip+":/"
 	# print scp_cmd # useful for debugging the scp command
 	# exit(0)
 	os.system(scp_cmd)
